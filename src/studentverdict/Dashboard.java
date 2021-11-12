@@ -113,6 +113,7 @@ public class Dashboard extends javax.swing.JFrame {
      GoodConduct goodconduct = new GoodConduct();
 
      SystemViews systemviews = new SystemViews();
+
      
 
        
@@ -202,6 +203,7 @@ lbstudentimage.setIcon(icon);
              this.add(systemviews);
              goodconduct.setVisible(false);
              this.add(goodconduct);
+          
 
              
 
@@ -496,6 +498,7 @@ lbstudentimage.setIcon(icon);
 
         jMenu1.setText("VERDICT");
 
+        jmpassverdict.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jmpassverdict.setText("ADD EVIDENCE");
         jmpassverdict.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -504,6 +507,7 @@ lbstudentimage.setIcon(icon);
         });
         jMenu1.add(jmpassverdict);
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("PASS VERDICT");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -534,6 +538,7 @@ lbstudentimage.setIcon(icon);
 
         jMenu6.setText("CLEARANCE");
 
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem4.setText("GOOD CONDUCT");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -542,7 +547,13 @@ lbstudentimage.setIcon(icon);
         });
         jMenu6.add(jMenuItem4);
 
-        jMenuItem5.setText("VERDICT");
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem5.setText("VERDICT  REPORT");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem5);
 
         jMenu3.add(jMenu6);
@@ -551,7 +562,7 @@ lbstudentimage.setIcon(icon);
 
         jMenu4.setText("CRIME");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, 0));
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("ADD CRIME");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -560,7 +571,7 @@ lbstudentimage.setIcon(icon);
         });
         jMenu4.add(jMenuItem1);
 
-        menjudgement.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, 0));
+        menjudgement.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
         menjudgement.setText("VERDICTS");
         menjudgement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -573,6 +584,7 @@ lbstudentimage.setIcon(icon);
 
         jMenu5.setText("ACCOUNT");
 
+        menaddstudent.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         menaddstudent.setText("ADD STUDENT");
         menaddstudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -581,6 +593,7 @@ lbstudentimage.setIcon(icon);
         });
         jMenu5.add(menaddstudent);
 
+        menaddstaff.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         menaddstaff.setText("ADD STAFF");
         menaddstaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -859,6 +872,11 @@ lbstudentimage.setIcon(icon);
          disposeall();
         goodconduct.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
 
 
