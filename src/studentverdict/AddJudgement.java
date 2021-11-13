@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -33,9 +34,30 @@ public class AddJudgement extends javax.swing.JPanel {
     String password = "";
     String url = "jdbc:mysql://localhost:3306/student_verdict";
     
-    
+    int autojudgementid = 1;
     public AddJudgement() {
         initComponents();
+        loadnextid ();
+    }
+    public void  loadnextid (){
+         try{
+             con = DriverManager.getConnection(url,username,password);
+             st = con.createStatement();
+             String selectjudgement = "SELECT * FROM judgement  ";
+            pst = con.prepareStatement(selectjudgement);
+            rs = pst.executeQuery();
+                  
+            while(rs.next()){
+               
+              autojudgementid ++; 
+             txtjudgementid.setText(autojudgementid+"");
+            
+            }
+            
+           
+         }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "error"+ ex,"Student verdict",JOptionPane.INFORMATION_MESSAGE);  
+         }
     }
 
     /**

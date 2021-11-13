@@ -43,11 +43,36 @@ public class AddStaff extends javax.swing.JPanel {
     String username = "root";
     String password = "";
     String url = "jdbc:mysql://localhost:3306/student_verdict";
+    
+     int autostaffid = 1;
     public AddStaff() {
         initComponents();
         loadavater();
         groupgender();
+        loadnextid ();
     }
+      public void  loadnextid (){
+         try{
+             con = DriverManager.getConnection(url,username,password);
+             st = con.createStatement();
+             String selectjudgement = "SELECT staffid FROM staff  ";
+            pst = con.prepareStatement(selectjudgement);
+            rs = pst.executeQuery();
+                  
+            while(rs.next()){
+               
+              autostaffid ++; 
+             txtstaffnumber.setText(autostaffid+"");
+            
+            }
+            
+           
+         }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "error"+ ex,"Student verdict",JOptionPane.INFORMATION_MESSAGE);  
+         }
+    }
+    
+    
      public void groupgender(){
         ButtonGroup Groupgender = new ButtonGroup();
         Groupgender.add(rbmale);
