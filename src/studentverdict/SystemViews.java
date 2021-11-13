@@ -471,7 +471,7 @@ public class SystemViews extends javax.swing.JPanel {
       if(cmbselectrange.getSelectedIndex() == 0){
                              JOptionPane.showMessageDialog(null, "Select all");
                              
-                             String selectjudgement = "SELECT * FROM judgement  ";
+                             String selectjudgement = "SELECT * FROM violation  ";
             pst = con.prepareStatement(selectjudgement);
             rs = pst.executeQuery();
                   
@@ -488,7 +488,7 @@ public class SystemViews extends javax.swing.JPanel {
       
                
                //ARRAY DATA TO DISPLAY
-               String tbldata []= {id, type,description,dateadded};
+               String tbldata []= {id, type,name,description,dateadded,judmentid};
                DefaultTableModel dtmdata = (DefaultTableModel)jtmytable.getModel();
                dtmdata.addRow(tbldata);
                

@@ -66,13 +66,13 @@ public class AddJudgement extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Verdict ID :");
+        jLabel1.setText("Judgement  ID :");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setText("Verdict Type:");
+        jLabel2.setText("Judgement Type:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setText("Verdict Description :");
+        jLabel3.setText("Judgement Description :");
 
         btnsavejudgement.setText("Save ");
         btnsavejudgement.addActionListener(new java.awt.event.ActionListener() {

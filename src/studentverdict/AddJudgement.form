@@ -88,7 +88,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Verdict ID :"/>
+        <Property name="text" type="java.lang.String" value="Judgement  ID :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -96,7 +96,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Verdict Type:"/>
+        <Property name="text" type="java.lang.String" value="Judgement Type:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtjudgementtype">
@@ -106,7 +106,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Verdict Description :"/>
+        <Property name="text" type="java.lang.String" value="Judgement Description :"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">

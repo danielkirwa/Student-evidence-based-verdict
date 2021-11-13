@@ -114,6 +114,7 @@ public class Dashboard extends javax.swing.JFrame {
 
      SystemViews systemviews = new SystemViews();
 
+
      
 
        
@@ -203,6 +204,7 @@ lbstudentimage.setIcon(icon);
              this.add(systemviews);
              goodconduct.setVisible(false);
              this.add(goodconduct);
+             
           
 
              
@@ -262,12 +264,11 @@ lbstudentimage.setIcon(icon);
         jMenu1 = new javax.swing.JMenu();
         jmpassverdict = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         menjudgement = new javax.swing.JMenuItem();
@@ -516,6 +517,14 @@ lbstudentimage.setIcon(icon);
         });
         jMenu1.add(jMenuItem2);
 
+        jMenuItem7.setText("VIEW VERDICT");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("VIEW");
@@ -528,7 +537,8 @@ lbstudentimage.setIcon(icon);
 
         jMenu3.setText("REPORT");
 
-        jMenuItem3.setText("CRIME CIRTIFICATE");
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        jMenuItem3.setText("VIEW CERTIFICATE");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -536,27 +546,14 @@ lbstudentimage.setIcon(icon);
         });
         jMenu3.add(jMenuItem3);
 
-        jMenu6.setText("CLEARANCE");
-
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem4.setText("GOOD CONDUCT");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        jMenuItem6.setText("GOOD CONDUCT");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jMenuItem6ActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem4);
-
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem5.setText("VERDICT  REPORT");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jMenuItem5);
-
-        jMenu3.add(jMenu6);
+        jMenu3.add(jMenuItem6);
 
         jMenuBar1.add(jMenu3);
 
@@ -572,7 +569,7 @@ lbstudentimage.setIcon(icon);
         jMenu4.add(jMenuItem1);
 
         menjudgement.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
-        menjudgement.setText("VERDICTS");
+        menjudgement.setText("JUDGDEMENT");
         menjudgement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menjudgementActionPerformed(evt);
@@ -618,7 +615,10 @@ lbstudentimage.setIcon(icon);
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
 
         // TODO add your handling code here:
-
+        
+        
+ disposeall();
+        goodconduct.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
 
@@ -867,16 +867,35 @@ lbstudentimage.setIcon(icon);
         systemviews.setVisible(true);
     }//GEN-LAST:event_jMenu2MouseClicked
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
-         disposeall();
-        goodconduct.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+        this.dispose();
+       JFrame printer = new PrinGoodConduct();
+                printer.setVisible(true);
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                int w = dim.width;
+                int h = dim.height;
+                printer.setSize(w, h);
+                printer.setLocation(0,0);
+                 printer.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                printer.setLayout(new GridBagLayout());
+               // this.dispose();
+        
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
-      
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+          this.dispose();
+       JFrame verdictprinter = new PrinVerdictCertificate();
+                verdictprinter.setVisible(true);
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                int w = dim.width;
+                int h = dim.height;
+                verdictprinter.setSize(w, h);
+                verdictprinter.setLocation(0,0);
+                 verdictprinter.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                verdictprinter.setLayout(new GridBagLayout());
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
 
 
@@ -983,13 +1002,12 @@ lbstudentimage.setIcon(icon);
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private com.toedter.calendar.JDateChooser jdcstudentdob;
