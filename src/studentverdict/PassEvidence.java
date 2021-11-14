@@ -167,8 +167,10 @@ lbevidenceimage.setIcon(icon);
         btnsavestaff = new javax.swing.JButton();
         cmbevidencestudentid = new javax.swing.JComboBox<>();
         cmbevidenceviolationid = new javax.swing.JComboBox<>();
+        lbbtnclose = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jpverdictevidence.setBackground(new java.awt.Color(255, 255, 255));
         jpverdictevidence.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -214,8 +216,13 @@ lbevidenceimage.setIcon(icon);
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Media Link :");
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jButton1.setBackground(new java.awt.Color(0, 153, 153));
         jButton1.setText("Reset Form");
 
+        btnsavestaff.setBackground(new java.awt.Color(0, 204, 102));
         btnsavestaff.setText("Submit Evidence");
         btnsavestaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,6 +372,16 @@ lbevidenceimage.setIcon(icon);
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
+        lbbtnclose.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lbbtnclose.setForeground(new java.awt.Color(204, 0, 0));
+        lbbtnclose.setText("X");
+        lbbtnclose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbbtnclose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbbtncloseMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -372,13 +389,17 @@ lbevidenceimage.setIcon(icon);
             .addGroup(layout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addComponent(jpverdictevidence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addComponent(lbbtnclose)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jpverdictevidence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbbtnclose, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpverdictevidence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -453,6 +474,11 @@ lbevidenceimage.setIcon(icon);
         }
     }//GEN-LAST:event_btnsavestaffActionPerformed
 
+    private void lbbtncloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbbtncloseMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_lbbtncloseMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnfilechooser;
@@ -473,6 +499,7 @@ lbevidenceimage.setIcon(icon);
     private javax.swing.JScrollPane jScrollPane2;
     private com.toedter.calendar.JDateChooser jdevidenceDOA;
     private javax.swing.JPanel jpverdictevidence;
+    private javax.swing.JLabel lbbtnclose;
     private javax.swing.JLabel lbevidenceimage;
     private javax.swing.JTextField lbevidencelink;
     private javax.swing.JTextArea txtevidencedescription;

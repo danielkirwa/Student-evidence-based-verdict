@@ -98,7 +98,7 @@ lbcertificateimage.setIcon(icon);
         });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("Print Certificate");
+        jButton2.setText("Print ");
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -300,65 +300,7 @@ lbcertificateimage.setIcon(icon);
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-       String reg = null; String surname = null;String othername = null;String link = null;String violationid = null;String staffid = null;
-       String datepass = null ;String resizedavatar = null; String violationtype = null;String violationname = null;String violationdescription = null;
-        try{
-            con = DriverManager.getConnection(url,username,password);
-            st = con.createStatement();
-            
-            
-         String selectstudent = "SELECT * FROM student WHERE studentREG = ?  ";
-            pst = con.prepareStatement(selectstudent);
-            pst.setString(1, (String) txtstudentregforgoodconduct.getText());
-            rs = pst.executeQuery();
-                  
-            if(rs.next()){
-               
-               reg = rs.getString("studentREG");
-               surname = rs.getString("studentsurname");
-               othername = rs.getString("studentothername");
-              // String idnumber = rs.getString("studentIDnumber");
-               link = rs.getString("studentimage");
-               
-                  String selectstudentverdict = "SELECT * FROM verdict WHERE studentREG = '"+reg+"'  ";
-            pst = con.prepareStatement(selectstudentverdict);
-            rsverdict = pst.executeQuery();
-            if(rsverdict.next()){
-                JOptionPane.showMessageDialog(null, "Student : " + txtstudentregforgoodconduct.getText() + surname + "criminal");
-             violationid = rs.getString("violationID");
-               staffid = rs.getString("staffID");
-              datepass = rs.getString("verdictDOV");
-               // get violation 
-               
-               /* String selectviolation= "SELECT * FROM violation WHERE  violationID = '"+violationid+"' ";
-            pst = con.prepareStatement(selectviolation);
-            reviolation = pst.executeQuery();
-            if(reviolation.next()){
-                 violationtype = rs.getString("violationtype");
-               violationname = rs.getString("violationname");
-              violationdescription = rs.getString("violationdescription");
-            }*/
-             
-            }else{
-               //JOptionPane.showMessageDialog(null, "Student : " + txtstudentregforgoodconduct.getText() + "clean"); 
-               lbcertificatename.setText(surname +  " " + othername);
-               lbcertificatereg.setText(reg);
-               resizedavatar = link;
-               lbcertificateconduct.setText("No Crime record");
-               resizedimage(resizedavatar);
-            }
-               
-            }else{
-                JOptionPane.showMessageDialog(null, "Student : " + txtstudentregforgoodconduct.getText() + "Not found");
-            }
-        
-            
-                         }
-    catch(SQLException ex){
-    JOptionPane.showMessageDialog(null, ex);
-}       catch (IOException ex) {
-            Logger.getLogger(GoodConduct.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

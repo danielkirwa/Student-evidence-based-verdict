@@ -151,6 +151,7 @@ lbstudentcertificateavatar.setIcon(icon);
             }
         });
 
+        btngeneratecertificate.setBackground(new java.awt.Color(0, 204, 102));
         btngeneratecertificate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btngeneratecertificate.setText("Generate Certificate");
         btngeneratecertificate.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +160,7 @@ lbstudentcertificateavatar.setIcon(icon);
             }
         });
 
+        btnprintgoodconductcertificate.setBackground(new java.awt.Color(0, 153, 153));
         btnprintgoodconductcertificate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnprintgoodconductcertificate.setText("Print Certificate");
         btnprintgoodconductcertificate.addActionListener(new java.awt.event.ActionListener() {
