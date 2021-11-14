@@ -176,6 +176,11 @@ lbstudentcertificateavatar.setIcon(icon);
 
         txtsearchstudentverdict.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtsearchstudentverdict.setToolTipText("Search Student REG");
+        txtsearchstudentverdict.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtsearchstudentverdictKeyReleased(evt);
+            }
+        });
 
         btngeneratecertificate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btngeneratecertificate.setText("Generate Certificate");
@@ -700,6 +705,13 @@ lbstudentcertificateavatar.setIcon(icon);
             }
             }
     }//GEN-LAST:event_btnprintgoodconductcertificateActionPerformed
+
+    private void txtsearchstudentverdictKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearchstudentverdictKeyReleased
+        // TODO add your handling code here:
+         int pos = txtsearchstudentverdict.getCaretPosition();
+        txtsearchstudentverdict.setText(txtsearchstudentverdict.getText().toUpperCase());
+        txtsearchstudentverdict.setCaretPosition(pos);
+    }//GEN-LAST:event_txtsearchstudentverdictKeyReleased
 
     /**
      * @param args the command line arguments

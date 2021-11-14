@@ -44,10 +44,87 @@ public class PassEvidence extends javax.swing.JPanel {
     String password = "";
     String url = "jdbc:mysql://localhost:3306/student_verdict";
     
+    int autoevidenceid = 1;
     
     public PassEvidence() {
         initComponents();
+        loadnextid ();
+        loadallstudent ();
+        loadalviolation ();
     }
+    
+    //load next id number
+    
+       public void  loadnextid (){
+         try{
+             con = DriverManager.getConnection(url,username,password);
+             st = con.createStatement();
+             String selectevidenceid = "SELECT evidenceID FROM evidence  ";
+            pst = con.prepareStatement(selectevidenceid);
+            rs = pst.executeQuery();
+                  
+            while(rs.next()){
+               
+              autoevidenceid ++; 
+             txtevidenceid.setText(autoevidenceid+"");
+            
+            }
+            
+           
+         }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "error"+ ex,"Student verdict",JOptionPane.INFORMATION_MESSAGE);  
+         }
+    }
+       
+       //populate the regcombobox
+       
+        public void  loadallstudent (){
+         try{
+             con = DriverManager.getConnection(url,username,password);
+             st = con.createStatement();
+             String selectevidenceid = "SELECT studentREG FROM student  ";
+            pst = con.prepareStatement(selectevidenceid);
+            rs = pst.executeQuery();
+                  
+            while(rs.next()){
+               
+              cmbevidencestudentid.addItem(rs.getString("studentREG")); 
+              cmbevidencestudentid.setEditable(true);
+            
+            }
+            
+           
+         }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "error"+ ex,"Student verdict",JOptionPane.INFORMATION_MESSAGE);  
+         }
+    } 
+        
+        
+         //populate the violation
+       
+        public void  loadalviolation (){
+         try{
+             con = DriverManager.getConnection(url,username,password);
+             st = con.createStatement();
+             String selecteviolation = "SELECT violationID FROM violation  ";
+            pst = con.prepareStatement(selecteviolation);
+            rs = pst.executeQuery();
+                  
+            while(rs.next()){
+               
+              cmbevidenceviolationid.addItem(rs.getString("violationID")); 
+              cmbevidenceviolationid.setEditable(true);
+            
+            }
+            
+           
+         }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "error"+ ex,"Student verdict",JOptionPane.INFORMATION_MESSAGE);  
+         }
+    }
+        
+    
+    
      
     
        public void resizedimage(String resizedavatar) throws IOException{
@@ -72,10 +149,8 @@ lbevidenceimage.setIcon(icon);
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jdevidenceDOA = new com.toedter.calendar.JDateChooser();
-        txtevidencestudentid = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txtevidenceviolationid = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtevidenceid = new javax.swing.JTextField();
@@ -90,6 +165,8 @@ lbevidenceimage.setIcon(icon);
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnsavestaff = new javax.swing.JButton();
+        cmbevidencestudentid = new javax.swing.JComboBox<>();
+        cmbevidenceviolationid = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -169,6 +246,8 @@ lbevidenceimage.setIcon(icon);
                 .addContainerGap())
         );
 
+        cmbevidenceviolationid.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Violation" }));
+
         javax.swing.GroupLayout jpverdictevidenceLayout = new javax.swing.GroupLayout(jpverdictevidence);
         jpverdictevidence.setLayout(jpverdictevidenceLayout);
         jpverdictevidenceLayout.setHorizontalGroup(
@@ -179,12 +258,12 @@ lbevidenceimage.setIcon(icon);
                     .addGroup(jpverdictevidenceLayout.createSequentialGroup()
                         .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jpverdictevidenceLayout.createSequentialGroup()
                                 .addGap(199, 199, 199)
                                 .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtevidencetype, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtevidenceid, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtevidenceid, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpverdictevidenceLayout.createSequentialGroup()
@@ -195,24 +274,26 @@ lbevidenceimage.setIcon(icon);
                                 .addGap(133, 133, 133))))
                     .addGroup(jpverdictevidenceLayout.createSequentialGroup()
                         .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jpverdictevidenceLayout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(79, 79, 79)
-                                .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jdevidenceDOA, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtevidencestudentid, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtevidenceviolationid, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jpverdictevidenceLayout.createSequentialGroup()
                                 .addGap(36, 36, 36)
                                 .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpverdictevidenceLayout.createSequentialGroup()
                                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(70, 70, 70))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jpverdictevidenceLayout.createSequentialGroup()
+                                .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(39, 39, 39)
+                                .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbevidencestudentid, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jdevidenceDOA, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jpverdictevidenceLayout.createSequentialGroup()
+                                        .addComponent(cmbevidenceviolationid, 0, 220, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
                         .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpverdictevidenceLayout.createSequentialGroup()
                                 .addComponent(lbevidencelink, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -247,10 +328,13 @@ lbevidenceimage.setIcon(icon);
                         .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtevidencetype, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(18, 18, 18)
-                        .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtevidenceviolationid, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
+                        .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpverdictevidenceLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel1))
+                            .addGroup(jpverdictevidenceLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbevidenceviolationid, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jpverdictevidenceLayout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -260,9 +344,9 @@ lbevidenceimage.setIcon(icon);
                 .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jpverdictevidenceLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtevidencestudentid, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(cmbevidencestudentid, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
                         .addGroup(jpverdictevidenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -288,7 +372,7 @@ lbevidenceimage.setIcon(icon);
             .addGroup(layout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addComponent(jpverdictevidence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,7 +434,7 @@ lbevidenceimage.setIcon(icon);
             String sqlevidencedetails = "INSERT INTO evidence (evidenceID,evidencetype,evidencedescription,evidencemedia,evidencedocument,"
             + "violationID,studentREG,evidenceDOA) VALUES"
             + " ('"+txtevidenceid.getText()+"','"+txtevidencetype.getText()+"','"+txtevidencedescription.getText()+"','"+lbevidencelink.getText()+"',"
-            + "'"+txtevidencenote.getText()+"','"+txtevidenceviolationid.getText()+"','"+txtevidencestudentid.getText()+"','"+evidencedoa+"')";
+            + "'"+txtevidencenote.getText()+"','"+cmbevidenceviolationid.getSelectedItem()+"','"+cmbevidencestudentid.getSelectedItem()+"','"+evidencedoa+"')";
             st.execute(sqlevidencedetails);
             JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: green; font-size: 12px;\">New Evidence Registered</i></HTML>","Student verdict",JOptionPane.INFORMATION_MESSAGE);
         
@@ -373,6 +457,8 @@ lbevidenceimage.setIcon(icon);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnfilechooser;
     private javax.swing.JButton btnsavestaff;
+    private javax.swing.JComboBox<String> cmbevidencestudentid;
+    private javax.swing.JComboBox<String> cmbevidenceviolationid;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -392,8 +478,6 @@ lbevidenceimage.setIcon(icon);
     private javax.swing.JTextArea txtevidencedescription;
     private javax.swing.JTextField txtevidenceid;
     private javax.swing.JTextArea txtevidencenote;
-    private javax.swing.JTextField txtevidencestudentid;
     private javax.swing.JTextField txtevidencetype;
-    private javax.swing.JTextField txtevidenceviolationid;
     // End of variables declaration//GEN-END:variables
 }

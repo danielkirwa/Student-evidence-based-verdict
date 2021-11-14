@@ -6,6 +6,10 @@
 package studentverdict;
 
 import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -37,10 +43,121 @@ public class PassVerdict extends javax.swing.JPanel {
     String username = "root";
     String password = "";
     String url = "jdbc:mysql://localhost:3306/student_verdict";
+    
+    String resizedavatar = null;
+    int autoverdictid = 1;
+    
     public PassVerdict() {
         initComponents();
+        loadallstudent ();
+        loadalstaff ();
+        loadalverdict ();
+         loadalviolation ();
     }
 
+    
+      //populate the regcombobox
+       
+        public void  loadallstudent (){
+         try{
+             con = DriverManager.getConnection(url,username,password);
+             st = con.createStatement();
+             String selectevidenceid = "SELECT studentREG FROM evidence  ";
+            pst = con.prepareStatement(selectevidenceid);
+            rs = pst.executeQuery();
+                  
+            while(rs.next()){
+               
+              cmbstudentverdictid.addItem(rs.getString("studentREG")); 
+              cmbstudentverdictid.setEditable(true);
+            
+            }
+            
+           
+         }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "error"+ ex,"Student verdict",JOptionPane.INFORMATION_MESSAGE);  
+         }
+    } 
+        
+      //populate the verdict
+       
+        public void  loadalverdict (){
+         try{
+             con = DriverManager.getConnection(url,username,password);
+             st = con.createStatement();
+             String selecteverdict = "SELECT verdictID FROM verdict  ";
+            pst = con.prepareStatement(selecteverdict);
+            rs = pst.executeQuery();
+                  
+            while(rs.next()){
+               
+              autoverdictid++;
+                txtverdictidverdict.setText(autoverdictid+"");
+               // System.out.print(autoverdictid + "inside loop");
+            
+            }
+             //System.out.print(autoverdictid + "outside loop");
+             txtverdictidverdict.setText(autoverdictid+"");
+           
+         }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "error"+ ex,"Student verdict",JOptionPane.INFORMATION_MESSAGE);  
+         }
+    }
+    //populate the violation
+       
+        public void  loadalviolation (){
+         try{
+             con = DriverManager.getConnection(url,username,password);
+             st = con.createStatement();
+             String selecteviolation = "SELECT violationID FROM violation  ";
+            pst = con.prepareStatement(selecteviolation);
+            rs = pst.executeQuery();
+                  
+            while(rs.next()){
+               
+              cmbviolationidverdict.addItem(rs.getString("violationID")); 
+              cmbviolationidverdict.setEditable(true);
+            
+            }
+            
+           
+         }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "error"+ ex,"Student verdict",JOptionPane.INFORMATION_MESSAGE);  
+         }
+    }
+        
+          //populate the staff
+       
+        public void  loadalstaff (){
+         try{
+             con = DriverManager.getConnection(url,username,password);
+             st = con.createStatement();
+             String selectestaff = "SELECT staffID FROM staff  ";
+            pst = con.prepareStatement(selectestaff);
+            rs = pst.executeQuery();
+                  
+            while(rs.next()){
+               
+              cmbstaffidverdict.addItem(rs.getString("staffID")); 
+              cmbstaffidverdict.setEditable(true);
+            
+            }
+            
+           
+         }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "error"+ ex,"Student verdict",JOptionPane.INFORMATION_MESSAGE);  
+         }
+    }
+    
+         public void resizedimage(String resizedavatar) throws IOException{
+        BufferedImage img = ImageIO.read(new File(resizedavatar));
+         Image scaled = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(scaled);
+        lbinquestionimage.setIcon(icon);
+    }
+        
+        
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,14 +167,10 @@ public class PassVerdict extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtstudentverdictid = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtverdictidverdict = new javax.swing.JTextField();
-        txtviolationidverdict = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtstaffidverdict = new javax.swing.JTextField();
         jdverdictverdictDOA = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         lbinquestionimage = new javax.swing.JLabel();
@@ -66,6 +179,10 @@ public class PassVerdict extends javax.swing.JPanel {
         btnsubmitevidence = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         lbbtnclose = new javax.swing.JLabel();
+        cmbstudentverdictid = new javax.swing.JComboBox<>();
+        cmbviolationidverdict = new javax.swing.JComboBox<>();
+        cmbstaffidverdict = new javax.swing.JComboBox<>();
+        txtverdictidverdict = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -88,7 +205,7 @@ public class PassVerdict extends javax.swing.JPanel {
 
         jButton1.setText("Reset Form");
 
-        btnsubmitevidence.setText("Submit Evidence");
+        btnsubmitevidence.setText("Pass Verdict");
         btnsubmitevidence.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnsubmitevidenceActionPerformed(evt);
@@ -129,6 +246,17 @@ public class PassVerdict extends javax.swing.JPanel {
             }
         });
 
+        cmbstudentverdictid.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Student" }));
+        cmbstudentverdictid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbstudentverdictidActionPerformed(evt);
+            }
+        });
+
+        cmbviolationidverdict.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Violation" }));
+
+        cmbstaffidverdict.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Staff" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,22 +265,21 @@ public class PassVerdict extends javax.swing.JPanel {
                 .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(199, 199, 199)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtverdictidverdict, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtstudentverdictid, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(cmbstudentverdictid, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jdverdictverdictDOA, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtstaffidverdict, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtviolationidverdict, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtverdictidverdict, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbviolationidverdict, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbstaffidverdict, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdverdictverdictDOA, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -174,32 +301,33 @@ public class PassVerdict extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lbbtnclose, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtstudentverdictid, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6))
-                    .addComponent(jLabel4))
-                .addGap(29, 29, 29)
+                        .addComponent(jLabel4)
+                        .addComponent(cmbstudentverdictid, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtverdictidverdict, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(1, 1, 1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addComponent(txtverdictidverdict, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtviolationidverdict, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtstaffidverdict, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel1)
+                            .addComponent(cmbviolationidverdict, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(cmbstaffidverdict, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jdverdictverdictDOA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(lbinquestionimage, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
         );
@@ -225,10 +353,14 @@ public class PassVerdict extends javax.swing.JPanel {
             st = con.createStatement();
             // inserting student personal details
             String sqlevidencedetails = "INSERT INTO verdict (verdictID,violationID,studentREG,verdictDOV,staffID) VALUES"
-            + " ('"+txtverdictidverdict.getText()+"','"+txtviolationidverdict.getText()+"','"+txtstudentverdictid.getText()+"','"+verdictpassdoa+"',"
-            + "'"+txtstaffidverdict.getText()+"')";
+            + " ('"+txtverdictidverdict.getText()+"','"+cmbviolationidverdict.getSelectedItem()+"','"+cmbstudentverdictid.getSelectedItem()+"','"+verdictpassdoa+"',"
+            + "'"+cmbstaffidverdict.getSelectedItem()+"')";
             st.execute(sqlevidencedetails);
             JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: green; font-size: 12px;\">New Verdict Passed</i></HTML>","Student verdict",JOptionPane.INFORMATION_MESSAGE);
+            
+            loadalverdict ();
+              String insertsearch = "UPDATE search set searchitem = '"+cmbstudentverdictid.getSelectedItem()+"'  WHERE searchid = '"+1+"'" ;
+                   st.execute(insertsearch);
         }catch(SQLIntegrityConstraintViolationException e){
             JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: red; font-size: 12px;\">Verdict Already Exists</i></HTML>","Student verdict",JOptionPane.WARNING_MESSAGE);
         }
@@ -246,9 +378,39 @@ public class PassVerdict extends javax.swing.JPanel {
         this.setVisible(false);
     }//GEN-LAST:event_lbbtncloseMouseClicked
 
+    private void cmbstudentverdictidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbstudentverdictidActionPerformed
+        // TODO add your handling code here:
+        
+                
+         try{
+             con = DriverManager.getConnection(url,username,password);
+             st = con.createStatement();
+             String selectevidenceid = "SELECT studentimage FROM student WHERE studentREG = '"+cmbstudentverdictid.getSelectedItem()+"'  ";
+            pst = con.prepareStatement(selectevidenceid);
+            rs = pst.executeQuery();
+                  
+            if(rs.next()){
+               
+              resizedimage(resizedavatar = rs.getString("studentimage"));
+            
+            }else{
+                lbinquestionimage.setText("");
+                lbinquestionimage.setToolTipText("Select student to view image");
+            }
+            
+           
+         }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "error"+ ex,"Student verdict",JOptionPane.INFORMATION_MESSAGE);  
+         }
+        
+    }//GEN-LAST:event_cmbstudentverdictidActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnsubmitevidence;
+    private javax.swing.JComboBox<String> cmbstaffidverdict;
+    private javax.swing.JComboBox<String> cmbstudentverdictid;
+    private javax.swing.JComboBox<String> cmbviolationidverdict;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -260,9 +422,6 @@ public class PassVerdict extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser jdverdictverdictDOA;
     private javax.swing.JLabel lbbtnclose;
     private javax.swing.JLabel lbinquestionimage;
-    private javax.swing.JTextField txtstaffidverdict;
-    private javax.swing.JTextField txtstudentverdictid;
     private javax.swing.JTextField txtverdictidverdict;
-    private javax.swing.JTextField txtviolationidverdict;
     // End of variables declaration//GEN-END:variables
 }

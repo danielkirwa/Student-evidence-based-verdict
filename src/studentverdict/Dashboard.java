@@ -92,7 +92,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     String url = "jdbc:mysql://localhost:3306/student_verdict";
 
-    public  int y;
+    public  int autostudentid;
 
     
 
@@ -132,10 +132,34 @@ public class Dashboard extends javax.swing.JFrame {
         loadavater();
 
         disposeall();
-
+           loadnextid ();
      
 
     }
+    
+    public void  loadnextid (){
+         try{
+             con = DriverManager.getConnection(url,username,password);
+             st = con.createStatement();
+             String selectstudentid = "SELECT studentREG FROM student  ";
+            pst = con.prepareStatement(selectstudentid);
+            rs = pst.executeQuery();
+                  
+            while(rs.next()){
+               
+              //autostudentid ++; 
+             //txtregnumber.setText(autostudentid+"");
+            
+            }
+            
+           
+         }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "error"+ ex,"Student verdict",JOptionPane.INFORMATION_MESSAGE);  
+         }
+    }
+    
+    
+    
 
     public void groupgender(){
 
@@ -288,6 +312,20 @@ lbstudentimage.setIcon(icon);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Registration Number :");
+
+        txtregnumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtregnumberActionPerformed(evt);
+            }
+        });
+        txtregnumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtregnumberKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtregnumberKeyReleased(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Surname :");
@@ -896,6 +934,25 @@ lbstudentimage.setIcon(icon);
                  verdictprinter.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 verdictprinter.setLayout(new GridBagLayout());
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void txtregnumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtregnumberActionPerformed
+        // TODO add your handling code here:
+        
+   
+    }//GEN-LAST:event_txtregnumberActionPerformed
+
+    private void txtregnumberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtregnumberKeyPressed
+        // TODO add your handling code here:
+        
+       
+    }//GEN-LAST:event_txtregnumberKeyPressed
+
+    private void txtregnumberKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtregnumberKeyReleased
+        // TODO add your handling code here:
+          int pos = txtregnumber.getCaretPosition();
+        txtregnumber.setText(txtregnumber.getText().toUpperCase());
+        txtregnumber.setCaretPosition(pos);
+    }//GEN-LAST:event_txtregnumberKeyReleased
 
 
 
