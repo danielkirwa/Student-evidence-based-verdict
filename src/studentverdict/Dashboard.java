@@ -113,7 +113,7 @@ public class Dashboard extends javax.swing.JFrame {
      GoodConduct goodconduct = new GoodConduct();
 
      SystemViews systemviews = new SystemViews();
-
+     AddAccount addaccount = new AddAccount();
 
      
 
@@ -228,6 +228,8 @@ lbstudentimage.setIcon(icon);
              this.add(systemviews);
              goodconduct.setVisible(false);
              this.add(goodconduct);
+             addaccount.setVisible(false);
+             this.add(addaccount);
              
           
 
@@ -296,6 +298,7 @@ lbstudentimage.setIcon(icon);
         jMenu5 = new javax.swing.JMenu();
         menaddstudent = new javax.swing.JMenuItem();
         menaddstaff = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -625,6 +628,14 @@ lbstudentimage.setIcon(icon);
         });
         jMenu5.add(menaddstaff);
 
+        jMenuItem4.setText("ADD ACCOUNT");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem4);
+
         jMenuItem8.setText("LOGOUT");
         jMenu5.add(jMenuItem8);
 
@@ -942,6 +953,12 @@ lbstudentimage.setIcon(icon);
         txtregnumber.setCaretPosition(pos);
     }//GEN-LAST:event_txtregnumberKeyReleased
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+         disposeall();
+        addaccount.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
 
 
     /**
@@ -1048,6 +1065,7 @@ lbstudentimage.setIcon(icon);
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
