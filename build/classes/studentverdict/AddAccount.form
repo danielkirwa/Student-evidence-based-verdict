@@ -121,7 +121,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="180" max="-2" attributes="0"/>
-                  <Component id="btnsavejudgement" min="-2" pref="212" max="-2" attributes="0"/>
+                  <Component id="btnaddnewaccount" min="-2" pref="212" max="-2" attributes="0"/>
                   <EmptySpace pref="130" max="32767" attributes="0"/>
                   <Component id="jButton2" min="-2" pref="212" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
@@ -133,7 +133,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="22" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnsavejudgement" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnaddnewaccount" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -142,7 +142,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnsavejudgement">
+        <Component class="javax.swing.JButton" name="btnaddnewaccount">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="cc" red="0" type="rgb"/>
@@ -150,7 +150,7 @@
             <Property name="text" type="java.lang.String" value="Add Account"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnsavejudgementActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnaddnewaccountActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
@@ -212,11 +212,8 @@
     <Component class="javax.swing.JComboBox" name="cmbprivilege">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="User"/>
-            <StringItem index="1" value="Admin"/>
-            <StringItem index="2" value="Judge"/>
-            <StringItem index="3" value="Lowyer"/>
+          <StringArray count="1">
+            <StringItem index="0" value="Admin"/>
           </StringArray>
         </Property>
       </Properties>
@@ -235,6 +232,9 @@
     <Component class="javax.swing.JPasswordField" name="jppassword">
     </Component>
     <Component class="javax.swing.JPasswordField" name="jpconfirmpassword">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jpconfirmpasswordKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBox1">
       <Properties>

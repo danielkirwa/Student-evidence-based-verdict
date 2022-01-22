@@ -41,6 +41,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 import java.sql.Statement;
+import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 
@@ -109,8 +110,6 @@ public class Dashboard extends javax.swing.JFrame {
       PassEvidence addevidence = new PassEvidence();
 
      public PassVerdict addpassverdict = new PassVerdict();
-
-     GoodConduct goodconduct = new GoodConduct();
 
      SystemViews systemviews = new SystemViews();
      AddAccount addaccount = new AddAccount();
@@ -226,8 +225,6 @@ lbstudentimage.setIcon(icon);
              systemviews.setVisible(false);
 
              this.add(systemviews);
-             goodconduct.setVisible(false);
-             this.add(goodconduct);
              addaccount.setVisible(false);
              this.add(addaccount);
              
@@ -290,7 +287,6 @@ lbstudentimage.setIcon(icon);
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -374,6 +370,11 @@ lbstudentimage.setIcon(icon);
 
         jButton4.setBackground(new java.awt.Color(0, 153, 153));
         jButton4.setText("RESET FORM");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -546,6 +547,7 @@ lbstudentimage.setIcon(icon);
         });
         jMenu1.add(jMenuItem2);
 
+        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
         jMenuItem7.setText("VIEW VERDICT");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -562,20 +564,16 @@ lbstudentimage.setIcon(icon);
                 jMenu2MouseClicked(evt);
             }
         });
+        jMenu2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jMenu2KeyReleased(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("REPORT");
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
-        jMenuItem3.setText("VIEW CERTIFICATE");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem3);
-
-        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F10, 0));
         jMenuItem6.setText("GOOD CONDUCT");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -628,6 +626,7 @@ lbstudentimage.setIcon(icon);
         });
         jMenu5.add(menaddstaff);
 
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
         jMenuItem4.setText("ADD ACCOUNT");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -637,6 +636,11 @@ lbstudentimage.setIcon(icon);
         jMenu5.add(jMenuItem4);
 
         jMenuItem8.setText("LOGOUT");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem8);
 
         jMenuBar1.add(jMenu5);
@@ -648,15 +652,6 @@ lbstudentimage.setIcon(icon);
     }// </editor-fold>//GEN-END:initComponents
 
 
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-
-        // TODO add your handling code here:
-        
-        
- disposeall();
-        goodconduct.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
 
 
@@ -812,7 +807,7 @@ lbstudentimage.setIcon(icon);
 
       catch(HeadlessException | SQLException ex){
 
-   JOptionPane.showMessageDialog(null, "error"+ ex,"School",JOptionPane.INFORMATION_MESSAGE);
+   JOptionPane.showMessageDialog(null, "An error occured","School",JOptionPane.INFORMATION_MESSAGE);
 
 
 
@@ -959,6 +954,27 @@ lbstudentimage.setIcon(icon);
         addaccount.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        txtregnumber.setText("");txtstudentsurname.setText("");txtstudentothername.setText("");txtstudentid.setText("");
+        txtstudentphone.setText("");txtstudentemail.setText("");
+            Calendar clndr = null;
+        jdcstudentdob.setCalendar(clndr);
+
+           lbstudentavatarlink.setText("");
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jMenu2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jMenu2KeyReleased
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenu2KeyReleased
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+         new Login().setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
 
 
     /**
@@ -1064,7 +1080,6 @@ lbstudentimage.setIcon(icon);
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;

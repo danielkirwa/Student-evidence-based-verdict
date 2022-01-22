@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -247,6 +248,10 @@ public class AddJudgement extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+      txtjudgementtype.setText("");
+      txtjudgementdescription.setText("");
+                  Calendar clndr = null;
+      jdjudgementdateadd.setCalendar(clndr);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void lbbtncloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbbtncloseMouseClicked

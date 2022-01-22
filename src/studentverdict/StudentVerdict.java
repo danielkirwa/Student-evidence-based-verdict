@@ -5,6 +5,8 @@
  */
 package studentverdict;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author owner
@@ -13,10 +15,12 @@ public class StudentVerdict {
 
     /**
      * @param args the command line arguments
-     */
+     */ 
     public static void main(String[] args) {
         // TODO code application logic here
-       new Login().setVisible(true);
+      new Login().setVisible(true);
+
+ 
     }
-    
+   
 }

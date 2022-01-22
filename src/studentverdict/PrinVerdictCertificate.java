@@ -568,6 +568,11 @@ lbstudentcertificateavatar.setIcon(icon);
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("LOGOUT");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -629,10 +634,10 @@ lbstudentcertificateavatar.setIcon(icon);
             
             
          String selectstudent = "SELECT  student.studentREG, student.studentsurname,student.studentothername,student.studentIDnumber,"
-                 + "student.studentimage,verdict.verdictDOV,verdict.violationID, violation.violationtype,"
-                 + "violation.violationdescription,violation.violationname,judgement.judgementdescription,judgement.judgementtype "
-                 + " FROM student , verdict , violation , judgement WHERE student.studentREG =  ?  AND verdict.studentREG = ? AND"
-                 + " violation.violationID = verdict.violationID AND judgement.judgementID = violation.violationID";
+                 + "student.studentimage,verdict.verdictDOV,verdict.violationID, violation.violationtype,violation.violationdescription,"
+                 + "violation.violationname,judgement.judgementdescription,judgement.judgementtype "
+                 + "FROM student, verdict , violation , judgement  WHERE student.studentREG =  ? AND verdict.studentREG = ? "
+                 + "AND violation.violationID = verdict.violationID AND judgement.judgementID = violation.judgementID";
             pst = con.prepareStatement(selectstudent);
             pst.setString(1, (String) txtsearchstudentverdict.getText());
             pst.setString(2, (String) txtsearchstudentverdict.getText());
@@ -649,9 +654,9 @@ lbstudentcertificateavatar.setIcon(icon);
                violationtype = rs.getString("violationtype");
                violationname = rs.getString("violationname");
                violationdescription = rs.getString("violationdescription");
-               judgement = rs.getString("judgementtype");
+                judgement = rs.getString("judgementtype");
                 judgementdescription = rs.getString("judgementdescription");
-                violationid = rs.getString("violationID");
+                //violationid = rs.getString("violationID");
                
                
                
@@ -714,6 +719,12 @@ lbstudentcertificateavatar.setIcon(icon);
         txtsearchstudentverdict.setText(txtsearchstudentverdict.getText().toUpperCase());
         txtsearchstudentverdict.setCaretPosition(pos);
     }//GEN-LAST:event_txtsearchstudentverdictKeyReleased
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+         new Login().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

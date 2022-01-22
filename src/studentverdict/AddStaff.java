@@ -191,6 +191,11 @@ lbstafffimage.setIcon(icon);
         jButton2.setBackground(new java.awt.Color(0, 153, 153));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setText("Rest form");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -216,7 +221,12 @@ lbstafffimage.setIcon(icon);
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Role :");
 
-        cmbstaffrole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Judge", "Lawyer" }));
+        cmbstaffrole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin" }));
+        cmbstaffrole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbstaffroleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -420,7 +430,7 @@ lbstafffimage.setIcon(icon);
                     + " ('"+txtstaffnumber.getText()+"','"+txtstaffsurname.getText()+"','"+txtstaffothername.getText()+"','"+txtstaffid.getText()+"',"
                     + "'"+txtstaffphone.getText()+"','"+txtstaffemail.getText()+"','"+staffgender+"','"+staffdob+"','"+ cmbstaffrole.getSelectedItem().toString()+"','"+lbstaffavatarlink.getText()+"')";
            st.execute(sqlstudentdetails);
-            JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: green; font-size: 12px;\">New Student Registered</i></HTML>","Student verdict",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: green; font-size: 12px;\">New Staff Registered</i></HTML>","Student verdict",JOptionPane.INFORMATION_MESSAGE);
         }catch(SQLIntegrityConstraintViolationException e){
         JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: red; font-size: 12px;\">Staff Already Exists</i></HTML>","Student verdict",JOptionPane.WARNING_MESSAGE);  
       }
@@ -432,6 +442,17 @@ lbstafffimage.setIcon(icon);
         JOptionPane.showMessageDialog(null,"Please select Date !","Student verdict",JOptionPane.INFORMATION_MESSAGE);
         } 
     }//GEN-LAST:event_btnsavestaffActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        txtstaffnumber.setText("");txtstaffsurname.setText("");txtstaffothername.setText("");txtstaffid.setText("");txtstaffphone.setText("");
+        txtstaffemail.setText("");cmbstaffrole.setSelectedIndex(0);
+        loadnextid ();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void cmbstaffroleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbstaffroleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbstaffroleActionPerformed
 
  public static void main(String args[]) {
      new AddStaff().setVisible(true);

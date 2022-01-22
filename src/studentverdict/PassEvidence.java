@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.util.Calendar;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -221,6 +222,11 @@ lbevidenceimage.setIcon(icon);
 
         jButton1.setBackground(new java.awt.Color(0, 153, 153));
         jButton1.setText("Reset Form");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btnsavestaff.setBackground(new java.awt.Color(0, 204, 102));
         btnsavestaff.setText("Submit Evidence");
@@ -478,6 +484,14 @@ lbevidenceimage.setIcon(icon);
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_lbbtncloseMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        txtevidencetype.setText("");txtevidencedescription.setText("");lbevidencelink.setText("");txtevidencenote.setText("");
+        cmbevidenceviolationid.setSelectedItem(0);cmbevidencestudentid.setSelectedItem(0);Calendar clndr = null;
+jdevidenceDOA.setCalendar(clndr);
+lbevidenceimage.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

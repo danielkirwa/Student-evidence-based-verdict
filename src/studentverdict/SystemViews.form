@@ -83,7 +83,7 @@
                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                           <Component id="btnupdatedetails" min="-2" pref="143" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="129" max="-2" attributes="0"/>
+                          <Component id="btndelete" min="-2" pref="129" max="-2" attributes="0"/>
                           <EmptySpace pref="280" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
@@ -121,7 +121,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="btnmastersearch" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                                  <Component id="jButton3" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="btndelete" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                               </Group>
                               <Component id="cmbselectrange" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
                               <Component id="btnupdatedetails" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
@@ -224,7 +224,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnrefreshtableActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btndelete">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="66" type="rgb"/>
@@ -237,6 +237,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="DELETE"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btndeleteActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnmastersearch">
           <Properties>

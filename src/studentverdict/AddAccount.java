@@ -5,6 +5,17 @@
  */
 package studentverdict;
 
+import java.awt.HeadlessException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,8 +27,37 @@ public class AddAccount extends javax.swing.JPanel {
     /**
      * Creates new form AddAccount
      */
+    
+    
+                Statement st;
+    Connection con;
+    PreparedStatement pst;
+    ResultSet rs;
+    
+    String username = "root";
+    String password = "";
+    String url = "jdbc:mysql://localhost:3306/student_verdict";
+    
     public AddAccount() {
         initComponents();
+    }
+    
+    // hashing password
+    
+    public static String hashpassword(String password){
+        try{
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(password.getBytes());
+            BigInteger number = new BigInteger(1, messageDigest);
+            String hashtext = number.toString(16);
+            while(hashtext.length() <32){
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        }catch(NoSuchAlgorithmException ex){
+            return "";
+        }
+                 
     }
 
     /**
@@ -30,7 +70,7 @@ public class AddAccount extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnsavejudgement = new javax.swing.JButton();
+        btnaddnewaccount = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         txtusername = new javax.swing.JTextField();
@@ -49,11 +89,11 @@ public class AddAccount extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        btnsavejudgement.setBackground(new java.awt.Color(0, 204, 102));
-        btnsavejudgement.setText("Add Account");
-        btnsavejudgement.addActionListener(new java.awt.event.ActionListener() {
+        btnaddnewaccount.setBackground(new java.awt.Color(0, 204, 102));
+        btnaddnewaccount.setText("Add Account");
+        btnaddnewaccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnsavejudgementActionPerformed(evt);
+                btnaddnewaccountActionPerformed(evt);
             }
         });
 
@@ -71,7 +111,7 @@ public class AddAccount extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(180, 180, 180)
-                .addComponent(btnsavejudgement, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnaddnewaccount, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(89, 89, 89))
@@ -81,7 +121,7 @@ public class AddAccount extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnsavejudgement, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnaddnewaccount, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -105,10 +145,16 @@ public class AddAccount extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Password :");
 
-        cmbprivilege.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", "Admin", "Judge", "Lowyer" }));
+        cmbprivilege.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin" }));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Confirm Password  :");
+
+        jpconfirmpassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jpconfirmpasswordKeyReleased(evt);
+            }
+        });
 
         jCheckBox1.setText("Show password");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -190,39 +236,29 @@ public class AddAccount extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnsavejudgementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsavejudgementActionPerformed
+    private void btnaddnewaccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddnewaccountActionPerformed
         // TODO add your handling code here:
-        
+           String hashedpassword;
+           hashedpassword = jppassword.getText();
+           String userpassword = hashpassword(hashedpassword);
+          // System.out.print(userpassword);
         if(jppassword.getText().equals(jpconfirmpassword.getText())){
              lbcheckme.setText("<HTML><i style=\"color: green; font-size: 12px;\">v</i></HTML>");
              if("".equals(txtusername.getText())){
                  JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: red; font-size: 12px;\">Enter username</i></HTML>","Student verdict",JOptionPane.WARNING_MESSAGE);
              }else{
                  lbcheckme.setText("<HTML><i style=\"color: green; font-size: 12px;\">v</i></HTML>");
-             }
-        }else{
-            lbcheckme.setText("<HTML><i style=\"color: red; font-size: 12px;\">X</i></HTML>");
-            JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: red; font-size: 12px;\">Password do not martch</i></HTML>","Student verdict",JOptionPane.WARNING_MESSAGE);
-        }
-        
-        
+                 try {
 
-        /*try {
-
-            // GET Date
-
-           
-            judgementdoa = new java.sql.Date(dob.getTime());
-            // TODO add your handling code here:
             con = DriverManager.getConnection(url,username,password);
             st = con.createStatement();
-            // inserting student personal details
-            String sqlstudentdetails = "INSERT INTO judgement (judgementID,judgementtype,judgementdescription,addeddate) VALUES"
-            + " ('"+txtusername.getText()+"','"+txtjudgementtype.getText()+"','"+txtjudgementdescription.getText()+"','"+judgementdoa+"')";
-            st.execute(sqlstudentdetails);
-            JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: green; font-size: 12px;\">New Judgement Registered</i></HTML>","Student verdict",JOptionPane.INFORMATION_MESSAGE);
+            // creating new accounds
+            String sqlcreatenewaccount = "INSERT INTO users (userusername,userpassword,userprivilege) VALUES"
+            + " ('"+txtusername.getText()+"','"+ userpassword+"','"+cmbprivilege.getSelectedItem()+"')";
+            st.execute(sqlcreatenewaccount);
+            JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: green; font-size: 12px;\">New Account Created</i></HTML>","Student verdict",JOptionPane.INFORMATION_MESSAGE);
         }catch(SQLIntegrityConstraintViolationException e){
-            JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: red; font-size: 12px;\">Judgement Already Exists</i></HTML>","Student verdict",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: red; font-size: 12px;\">Accout Already Exists</i></HTML>","Student verdict",JOptionPane.WARNING_MESSAGE);
         }
         catch(HeadlessException | SQLException ex){
             JOptionPane.showMessageDialog(null, "error"+ ex,"Student verdict",JOptionPane.INFORMATION_MESSAGE);
@@ -230,11 +266,22 @@ public class AddAccount extends javax.swing.JPanel {
         }
         catch(NullPointerException npx){
             JOptionPane.showMessageDialog(null,"Please select Date !","Student verdict",JOptionPane.INFORMATION_MESSAGE);
-        }*/
-    }//GEN-LAST:event_btnsavejudgementActionPerformed
+        }
+             }
+        }else{
+            lbcheckme.setText("<HTML><i style=\"color: red; font-size: 12px;\">X</i></HTML>");
+            JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: red; font-size: 12px;\">Password do not martch</i></HTML>","Student verdict",JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_btnaddnewaccountActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        txtusername.setText("");
+        jppassword.setText("");
+                jpconfirmpassword.setText("");
+                cmbprivilege.setSelectedIndex(0); 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void lbbtncloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbbtncloseMouseClicked
@@ -246,9 +293,18 @@ public class AddAccount extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+    private void jpconfirmpasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpconfirmpasswordKeyReleased
+        // TODO add your handling code here:
+         if(jppassword.getText().equals(jpconfirmpassword.getText())){
+             lbcheckme.setText("<HTML><i style=\"color: green; font-size: 12px;\">v</i></HTML>");
+         }else{
+             lbcheckme.setText("<HTML><i style=\"color: red; font-size: 12px;\">X</i></HTML>");
+         }
+    }//GEN-LAST:event_jpconfirmpasswordKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnsavejudgement;
+    private javax.swing.JButton btnaddnewaccount;
     private javax.swing.JComboBox<String> cmbprivilege;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;

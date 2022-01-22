@@ -8,7 +8,14 @@ package studentverdict;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import static studentverdict.AddAccount.hashpassword;
 
 /**
  *
@@ -19,6 +26,16 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+         Statement st;
+    Connection con;
+    PreparedStatement pst;
+    ResultSet rs;
+    
+    String username = "root";
+    String password = "";
+    String url = "jdbc:mysql://localhost:3306/student_verdict";
+    
+    
     public Login() {
         initComponents();
     }
@@ -35,9 +52,9 @@ public class Login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtusernamelogin = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        jploginpassword = new javax.swing.JPasswordField();
         bntlogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,18 +74,18 @@ public class Login extends javax.swing.JFrame {
         jPanel2.add(jLabel1);
         jLabel1.setBounds(280, 60, 89, 17);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel2.add(jTextField1);
-        jTextField1.setBounds(200, 100, 240, 40);
+        txtusernamelogin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel2.add(txtusernamelogin);
+        txtusernamelogin.setBounds(200, 100, 240, 40);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("PASSWORD :");
         jPanel2.add(jLabel2);
         jLabel2.setBounds(280, 170, 91, 17);
 
-        jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel2.add(jPasswordField1);
-        jPasswordField1.setBounds(200, 220, 250, 40);
+        jploginpassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel2.add(jploginpassword);
+        jploginpassword.setBounds(200, 220, 250, 40);
 
         bntlogin.setBackground(new java.awt.Color(153, 255, 153));
         bntlogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -93,7 +110,26 @@ public class Login extends javax.swing.JFrame {
 
     private void bntloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntloginActionPerformed
         // TODO add your handling code here:
-           JFrame dash = new Dashboard();
+        
+        
+        String hashedpassword;
+           hashedpassword = jploginpassword.getText();
+           String userpassword = hashpassword(hashedpassword);
+        
+        try{
+             con = DriverManager.getConnection(url,username,password);
+            st = con.createStatement();
+              String selecteevidence = "SELECT * FROM users WHERE  userusername = '"+txtusernamelogin.getText()+"' ";
+            pst = con.prepareStatement(selecteevidence);
+            rs = pst.executeQuery();
+                  
+            if(rs.next()){
+               JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: green; font-size: 12px;\">account found</i></HTML>","Student verdict",JOptionPane.WARNING_MESSAGE);
+               String username = rs.getString("userusername");
+               String password = rs.getString("userpassword");
+               String privilage = rs.getString("userprivilege");
+               if(userpassword == null ? password == null : userpassword.equals(password)){
+                 JFrame dash = new Dashboard();
                 dash.setVisible(true);
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 int w = dim.width;
@@ -102,7 +138,20 @@ public class Login extends javax.swing.JFrame {
                 dash.setLocation(0,0);
                  dash.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 dash.setLayout(new GridBagLayout());
-                this.dispose();
+                this.dispose();  
+               }else{
+                  JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: red; font-size: 12px;\">Wrong password</i></HTML>","Student verdict",JOptionPane.WARNING_MESSAGE); 
+               }
+           
+            }else{
+                JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: red; font-size: 12px;\">Account ID not found</i></HTML>","Student verdict",JOptionPane.WARNING_MESSAGE);
+            }
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex,"Student verdict",JOptionPane.WARNING_MESSAGE); 
+        }
+        
+          /*/ */
     }//GEN-LAST:event_bntloginActionPerformed
 
     /**
@@ -146,7 +195,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField jploginpassword;
+    private javax.swing.JTextField txtusernamelogin;
     // End of variables declaration//GEN-END:variables
 }

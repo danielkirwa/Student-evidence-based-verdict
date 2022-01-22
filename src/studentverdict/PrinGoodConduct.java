@@ -145,6 +145,11 @@ lbstudentcertificateavatar.setIcon(icon);
 
         txtsearchstudent.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtsearchstudent.setToolTipText("Search Student REG");
+        txtsearchstudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtsearchstudentActionPerformed(evt);
+            }
+        });
         txtsearchstudent.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtsearchstudentKeyReleased(evt);
@@ -456,6 +461,11 @@ lbstudentcertificateavatar.setIcon(icon);
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("LOGOUT");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -540,7 +550,7 @@ lbstudentcertificateavatar.setIcon(icon);
              }
             }else{
                 
-                String selectstudent = "SELECT * FROM verdict WHERE studentREG = ?  ";
+                String selectstudent = "SELECT * FROM student WHERE studentREG = ?  ";
             pst = con.prepareStatement(selectstudent);
             pst.setString(1, (String) txtsearchstudent.getText());
             rs = pst.executeQuery();
@@ -557,8 +567,11 @@ lbstudentcertificateavatar.setIcon(icon);
                lbcandidateidnumber.setText("ID Number : " + idnumber);
                lbcondidatename.setText(surname + "  " + othername);
                lbcandidatereg.setText(reg);
+            }else{
+                                JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: blue; font-size: 12px;\">Student not found</i></HTML>","Student verdict",JOptionPane.WARNING_MESSAGE);
+
             }
-                JOptionPane.showMessageDialog(null, "<HTML><i style=\"color: blue; font-size: 12px;\">Student not found</i></HTML>","Student verdict",JOptionPane.WARNING_MESSAGE);
+            
             }
          }
             catch( SQLException | IOException ex){
@@ -602,6 +615,16 @@ lbstudentcertificateavatar.setIcon(icon);
         txtsearchstudent.setText(txtsearchstudent.getText().toUpperCase());
         txtsearchstudent.setCaretPosition(pos);
     }//GEN-LAST:event_txtsearchstudentKeyReleased
+
+    private void txtsearchstudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchstudentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtsearchstudentActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+         new Login().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -267,7 +267,7 @@ public class SystemViews extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         btnupdatedetails = new javax.swing.JButton();
         btnrefreshtable = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btndelete = new javax.swing.JButton();
         btnmastersearch = new javax.swing.JButton();
         lbsystemviewaction = new javax.swing.JLabel();
         lbbtnclose = new javax.swing.JLabel();
@@ -324,10 +324,15 @@ public class SystemViews extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(102, 0, 0));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("DELETE");
+        btndelete.setBackground(new java.awt.Color(102, 0, 0));
+        btndelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btndelete.setForeground(new java.awt.Color(255, 255, 255));
+        btndelete.setText("DELETE");
+        btndelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndeleteActionPerformed(evt);
+            }
+        });
 
         btnmastersearch.setBackground(new java.awt.Color(0, 204, 102));
         btnmastersearch.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -372,7 +377,7 @@ public class SystemViews extends javax.swing.JPanel {
                         .addGap(54, 54, 54)
                         .addComponent(btnupdatedetails, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(280, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbsystemviewaction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -401,7 +406,7 @@ public class SystemViews extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnmastersearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(cmbselectrange, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnupdatedetails, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1001,14 +1006,32 @@ public class SystemViews extends javax.swing.JPanel {
         this.setVisible(false);
     }//GEN-LAST:event_lbbtncloseMouseClicked
 
+    private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
+        // TODO add your handling code here:
+            try{
+                int rows=jtmytable.getRowCount();
+                 con = DriverManager.getConnection(url,username,password);
+                st = con.createStatement();
+                  String deletestudentexam = "DELETE from tblexams WHERE  REGISTRATIONNUMBER = ?";
+                pst = con.prepareStatement(deletestudentexam);
+                   for(int row = 0; row<rows; row++)
+                 { 
+                String egnumber = (String)jtmytable.getValueAt(row, 0);
+                pst.setString(1, egnumber);}
+                pst.executeUpdate();
+             }catch(SQLException ex){
+                 JOptionPane.showMessageDialog(null,"Error" + ex,"School",JOptionPane.WARNING_MESSAGE); 
+             }
+    }//GEN-LAST:event_btndeleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btndelete;
     private javax.swing.JButton btnmastersearch;
     private javax.swing.JButton btnrefreshtable;
     private javax.swing.JButton btnupdatedetails;
     private javax.swing.JComboBox<String> cmbcategory;
     private javax.swing.JComboBox<String> cmbselectrange;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

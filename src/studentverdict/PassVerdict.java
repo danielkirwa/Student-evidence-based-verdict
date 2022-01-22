@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.util.Calendar;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -209,6 +210,11 @@ public class PassVerdict extends javax.swing.JPanel {
 
         jButton1.setBackground(new java.awt.Color(0, 153, 153));
         jButton1.setText("Reset Form");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btnsubmitevidence.setBackground(new java.awt.Color(0, 204, 102));
         btnsubmitevidence.setText("Pass Verdict");
@@ -410,6 +416,14 @@ public class PassVerdict extends javax.swing.JPanel {
          }
         
     }//GEN-LAST:event_cmbstudentverdictidActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        txtverdictidverdict.setText("");cmbviolationidverdict.setSelectedItem(0);cmbstudentverdictid.setSelectedItem(0);
+        cmbstaffidverdict.setSelectedItem(0);
+                 Calendar clndr = null;
+        jdverdictverdictDOA.setCalendar(clndr);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

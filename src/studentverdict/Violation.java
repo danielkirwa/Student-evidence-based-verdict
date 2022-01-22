@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -144,6 +145,11 @@ public class Violation extends javax.swing.JPanel {
 
         jButton2.setBackground(new java.awt.Color(0, 153, 153));
         jButton2.setText("Rese Formt");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,6 +177,12 @@ public class Violation extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Judegement  ID :");
+
+        cmbviolationjudgementid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbviolationjudgementidActionPerformed(evt);
+            }
+        });
 
         lbbtnclose.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lbbtnclose.setForeground(new java.awt.Color(204, 0, 0));
@@ -309,6 +321,18 @@ public class Violation extends javax.swing.JPanel {
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_lbbtncloseMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        txtviolationtype.setText("");txtviolationtype.setText("");txtviolationdescription.setText("");
+        cmbviolationjudgementid.setSelectedIndex(0);txtviolationname.setText("");
+                 Calendar clndr = null;
+        jdviolationdateadd.setCalendar(clndr);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void cmbviolationjudgementidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbviolationjudgementidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbviolationjudgementidActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
